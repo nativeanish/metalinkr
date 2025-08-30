@@ -7,7 +7,7 @@ export default function AddBlock() {
   return (
     <div className="mt-8 flex max-w-2xl mx-auto">
       <Dialog>
-        <DialogTrigger className="w-full mx-auto px-1">
+        <DialogTrigger asChild className="w-full mx-auto px-1">
           <Button size="lg" className="w-full mx-auto">
             <Plus className="mr-2 h-5 w-5" />
             Add Block
