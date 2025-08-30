@@ -9,6 +9,7 @@ import {
   Link,
   Image,
   Link2,
+  Plus,
 } from "lucide-react";
 import { SiFarcaster } from "react-icons/si";
 
@@ -25,6 +26,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import Paragraph from "../../../Image/Paragraph";
 import Odysee from "../../../Image/Odysee";
 import Mirror from "../../../Image/Mirror";
@@ -61,27 +63,28 @@ const data = {
       name: "General",
       icon: Link,
       node: [
-        { name: "Image", alt: "Image", icon: Image },
-        { name: "Url", alt: "Url", icon: Link2 },
+        { name: "Image", alt: "Image", icon: Image, description: "Upload and display images in your profile" },
+        { name: "Url", alt: "Url", icon: Link2, description: "Add custom links to any website or resource" },
       ],
     },
     {
       name: "Text",
       icon: AlignCenter,
       node: [
-        { name: "Text", alt: "Text", icon: AlignCenter },
-        { name: "Header", alt: "Header", icon: FaHeading },
+        { name: "Text", alt: "Text", icon: AlignCenter, description: "Add formatted text blocks and paragraphs" },
+        { name: "Header", alt: "Header", icon: FaHeading, description: "Create section headers and titles" },
       ],
     },
     {
       name: "File",
       icon: File,
       node: [
-        { name: "PDF", alt: "PDF", icon: FaFilePdf },
+        { name: "PDF", alt: "PDF", icon: FaFilePdf, description: "Share PDF documents and files" },
         {
           name: "File",
           alt: "File",
           icon: FaFile,
+          description: "Upload and share various file types",
         },
       ],
     },
@@ -89,37 +92,37 @@ const data = {
       name: "Publishing",
       icon: BookCheck,
       node: [
-        { name: "Medium", alt: "Medium", icon: FaMedium },
-        { name: "Paragraph", alt: "Paragraph", icon: Paragraph },
-        { name: "Mirror", alt: "Mirror", icon: Mirror },
+        { name: "Medium", alt: "Medium", icon: FaMedium, description: "Feature your Medium articles and stories" },
+        { name: "Paragraph", alt: "Paragraph", icon: Paragraph, description: "Share your Paragraph blog posts" },
+        { name: "Mirror", alt: "Mirror", icon: Mirror, description: "Display your Mirror publications" },
       ],
     },
     {
       name: "Video",
       icon: Clapperboard,
       node: [
-        { name: "Youtube Video", alt: "YTVideo", icon: FaYoutube },
-        { name: "Odysee Video", alt: "Odysee", icon: Odysee },
-        { name: "Twitch Video", alt: "Twitch", icon: FaTwitch },
+        { name: "Youtube Video", alt: "YTVideo", icon: FaYoutube, description: "Embed YouTube videos and playlists" },
+        { name: "Odysee Video", alt: "Odysee", icon: Odysee, description: "Share videos from Odysee platform" },
+        { name: "Twitch Video", alt: "Twitch", icon: FaTwitch, description: "Feature Twitch clips and highlights" },
       ],
     },
     {
       name: "Post",
       icon: Repeat,
       node: [
-        { name: "Tweet", alt: "Tweet", icon: FaRetweet },
-        { name: "Facebook Post", alt: "Post", icon: FaFacebook },
-        { name: "Farcaster", alt: "Farcaster", icon: SiFarcaster },
-        { name: "Insta Post", alt: "Insta Post", icon: FaInstagram },
+        { name: "Tweet", alt: "Tweet", icon: FaRetweet, description: "Embed specific tweets and Twitter posts" },
+        { name: "Facebook Post", alt: "Post", icon: FaFacebook, description: "Share Facebook posts and updates" },
+        { name: "Farcaster", alt: "Farcaster", icon: SiFarcaster, description: "Display Farcaster casts and content" },
+        { name: "Insta Post", alt: "Insta Post", icon: FaInstagram, description: "Feature Instagram posts and reels" },
       ],
     },
     {
       name: "Community",
       icon: Users,
       node: [
-        { name: "Telegram", alt: "Telegram", icon: FaTelegram },
-        { name: "Discord", alt: "Discord", icon: FaDiscord },
-        { name: "Reddit", alt: "Reddit", icon: FaReddit },
+        { name: "Telegram", alt: "Telegram", icon: FaTelegram, description: "Link to Telegram groups and channels" },
+        { name: "Discord", alt: "Discord", icon: FaDiscord, description: "Connect Discord servers and communities" },
+        { name: "Reddit", alt: "Reddit", icon: FaReddit, description: "Share Reddit communities and discussions" },
       ],
     },
   ],
@@ -174,25 +177,40 @@ export default function BlockDialog() {
             </div>
           </header>
           <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {data.nav
                 .find((item) => item.name === selected)
                 ?.node.map((block) => (
                   <div
                     key={block.name}
-                    className="group relative flex flex-col items-center justify-center p-6 bg-card border border-border rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all duration-200 cursor-pointer min-h-[120px]"
+                    className="group relative flex flex-col p-6 bg-card border border-border rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all duration-200 min-h-[140px]"
                   >
-                    <div className="flex flex-col items-center gap-3">
-                      <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <div className="flex items-start gap-4 flex-1">
+                      <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors shrink-0">
                         <block.icon className="h-6 w-6 text-primary" />
                       </div>
-                      <span className="text-sm font-medium text-center text-foreground group-hover:text-primary transition-colors">
-                        {block.name}
-                      </span>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
+                          {block.name}
+                        </h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          {block.description}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-border/50">
+                      <Button 
+                        size="sm" 
+                        className="w-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add {block.name}
+                      </Button>
                     </div>
                     
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg" />
+                    <div className="absolute inset-0 bg-primary/3 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg" />
                     
                     {/* Selection indicator */}
                     <div className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
