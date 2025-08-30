@@ -174,12 +174,31 @@ export default function BlockDialog() {
             </div>
           </header>
           <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-muted/50 aspect-video max-w-3xl rounded-xl"
-              />
-            ))}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {data.nav
+                .find((item) => item.name === selected)
+                ?.node.map((block) => (
+                  <div
+                    key={block.name}
+                    className="group relative flex flex-col items-center justify-center p-6 bg-card border border-border rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all duration-200 cursor-pointer min-h-[120px]"
+                  >
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <block.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-center text-foreground group-hover:text-primary transition-colors">
+                        {block.name}
+                      </span>
+                    </div>
+                    
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg" />
+                    
+                    {/* Selection indicator */}
+                    <div className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                ))}
+            </div>
           </div>
         </main>
       </SidebarProvider>
